@@ -1,0 +1,49 @@
+<section>
+  <div class="d-flex w-75 mx-auto mt-4">
+    <input
+      [(ngModel)]="searchName"
+      type="search"
+      placeholder="SearchByName..."
+      class="form-control w-50 me-2"
+    />
+    <input
+      [(ngModel)]="searchAmount"
+      type="number"
+      placeholder="SearchByAmount..."
+      class="form-control w-50"
+    />
+  </div>
+
+  <div class="d-flex justify-content-center my-4">
+  <table class="table table-responsive  table-striped w-75 text-center">
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>Customer Name</th>
+        <th>Transaction ID</th>
+        <th>Amount</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="cursor-pointer" *ngFor="let data of combinedData | search : searchName: searchAmount" (click)="selectCustomer(data)">
+        <td>{{ data.customer_id }}</td>
+        <td>{{ data.customerName }}</td>
+        <td>{{ data.id }}</td>
+        <td>{{ data.amount }}</td>
+        <td>{{ data.date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+
+
+<div *ngIf="selectedCustomer">
+  <h2 class="text-center">Transactions for : <span class="text-danger">{{ selectedCustomer.customerName }}</span></h2>
+  <app-chart [transactions]= "selectedCustomerTransactions"></app-chart>
+</div>
+
+
+
